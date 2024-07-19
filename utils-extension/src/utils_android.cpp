@@ -26,10 +26,27 @@ namespace dmUtils {
 
         JNIEnv* env = threadAttacher.GetEnv();
 
-        jclass cls = dmAndroid::LoadClass(env , "com.rummy.utilsExtension");
+        jclass cls = dmAndroid::LoadClass(env , "com.rummy.utilsExtension.Utils");
         InitJNIMethods(env ,cls);
         jmethodID jni_constructor = env->GetMethodID(cls , "<init>" ,"(Landroid/app/Activity;)V");
-        g_uitls.m_UtilsJNI = env->NewGlobalRef(env->NewObject(cls, jni_constructor , threadAttacher.GetActivity()));
+        if (jni_constructor == nullptr) {
+            dmLogInfo("Failed to get constructor ID for URIOperations");
+            return;
+        }
+
+        jobject native_activity = dmGraphics::GetNativeAndroidActivity();
+        jobject localRef = env->NewObject(cls, jni_constructor, native_activity);
+        if (localRef == nullptr) {
+            dmLogInfo("Failed to create new URIOperations object");
+            return;
+        }
+
+        g_uitls.m_UtilsJNI = env->NewGlobalRef(localRef);
+        env->DeleteLocalRef(localRef);
+
+        if (g_uitls.m_UtilsJNI == nullptr) {
+            dmLogInfo("Failed to create global reference for URIOperations object");
+        }
     }
 
 

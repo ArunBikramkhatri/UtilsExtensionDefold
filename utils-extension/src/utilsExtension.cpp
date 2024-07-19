@@ -1,11 +1,10 @@
-#define EXTENSION_NAME UtilsExt
-#define LIB_NAME "UtilsExt"
-#define MODULE_NAME "utilsExt"
+#define EXTENSION_NAME utilsExt
+#define LIB_NAME "utilsExt"
+#define MODULE_NAME LIB_NAME
 
-#define DLIB_LOG_DOMAIN LIB_NAME
 #include <dmsdk/sdk.h>
 
-#if defined(DM_PLATFORM_ANDROID) || defined(DM_PLATFORM_IOS)
+#if defined(DM_PLATFORM_ANDROID)
 
 #include "utils_private.h"
 
