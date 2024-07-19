@@ -1,4 +1,4 @@
-#if defined(DM_PLATFORM_ANDROID) || defined(DM_PLATFORM_IOS)
+#if defined(DM_PLATFORM_ANDROID)
 
 #pragma once
 
@@ -8,3 +8,6 @@ namespace dmUtils {
     void showMailIntent(const char* mailUri);
     void InitializeExtension();
 }
+
+
+#endif

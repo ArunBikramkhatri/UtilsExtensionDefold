@@ -9,10 +9,9 @@ namespace dmUtils {
     struct Utils 
     {
         jobject m_UtilsJNI;
-        jmethodID m_openURI;
+        jmethodID m_startMailIntent;
 
-
-    }
+    };
 
     static Utils g_uitls ;
 
@@ -54,3 +53,5 @@ namespace dmUtils {
     }
 
 }
+
+#endif
