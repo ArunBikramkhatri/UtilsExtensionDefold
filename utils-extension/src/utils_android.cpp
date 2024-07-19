@@ -40,8 +40,17 @@ namespace dmUtils {
         env->CallVoidMethod(instance, method);
     }
 
-    void showMailIntent(){
-        CallVoidMethod(g_uitls.m_UtilsJNI , g_uitls.m_startMailIntent);
+    
+
+    static void CallVoidMethodChar(jobject instance , jmethodID method, const char* cstr){
+        dmAndroid::ThreadAttacher threadAttacher;
+        JNIEnv* env = threadAttacher.GetEnv();
+        jstring jstr = env->NewStringUTF(cstr);
+        env->CallVoidMethod(instance, method ,jstr);
+        env->DeleteLocalRef(jstr);
+    }
+    void showMailIntent(const char* mailUri){
+        CallVoidMethodChar(g_uitls.m_UtilsJNI , g_uitls.m_startMailIntent ,mailUri);
     }
 
 }

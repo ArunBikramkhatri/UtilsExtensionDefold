@@ -27,7 +27,8 @@ static int Lua_SetCallback(lua_State* L)
 
 static int Lua_ShowIntent(lua_State* L){
     DM_LUA_STACK_CHECK(L, 0);
-    showMailIntent();
+    const char* mailUri_lua = luaL_checkstring(L, 1);
+    showMailIntent(mailUri_lua);
     return 0;
 }
 
@@ -46,13 +47,13 @@ static void LuaInit(lua_State* L)
 
 static dmExtension::Result AppInitializeUtils(dmExtension::AppParams* params)
 {
-    dmLogInfo("AppInitializeAdmob");
+    dmLogInfo("AppInitializeUtils");
     return dmExtension::RESULT_OK;
 }
 
 static dmExtension::Result InitializeUtils(dmExtension::Params* params)
 {
-    dmLogInfo("InitializeAdmob");
+    dmLogInfo("InitializeUtils");
     LuaInit(params->m_L);
     Initialize_Ext(params, DEFOLD_USERAGENT);
     InitializeCallback();

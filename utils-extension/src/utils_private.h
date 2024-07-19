@@ -5,5 +5,5 @@
 #include <dmsdk/sdk.h>
 
 namespace dmUtils {
-    void showMailIntent();
+    void showMailIntent(const char* mailUri);
 }
