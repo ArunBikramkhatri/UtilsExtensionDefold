@@ -6,6 +6,7 @@ import android.util.Log;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.TextUtils;
 import androidx.core.content.FileProvider;
 
 import java.io.File;
@@ -54,7 +55,7 @@ public class URIOperations {
             activity.startActivity(intent);
         } catch (Exception e) {
             Log.e(TAG, "Unable to open uri " + uriString, e);
-          
+
         }
     }
 }
