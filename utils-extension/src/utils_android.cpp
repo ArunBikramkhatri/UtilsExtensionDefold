@@ -36,7 +36,8 @@ namespace dmUtils {
             return;
         }
 
-        jobject native_activity = dmGraphics::GetNativeAndroidActivity();
+        // jobject native_activity = dmGraphics::GetNativeAndroidActivity();
+        jobject native_activity = threadAttacher.GetActivity()->clazz;
         jobject localRef = env->NewObject(cls, jni_constructor, native_activity);
         if (localRef == nullptr) {
             dmLogInfo("Failed to create new URIOperations object");

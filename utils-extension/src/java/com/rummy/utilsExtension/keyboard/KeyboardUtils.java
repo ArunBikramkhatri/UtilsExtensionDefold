@@ -20,13 +20,20 @@ public class KeyboardUtils {
     public KeyboardUtils(Activity activity) {
         Log.d(TAG, "keyboard constructor called");
         this.activity = activity;
+
+    }
+
+    public void showKeyboard() {
+        if (activity == null) {
+            Log.d(TAG, "activity is null.");
+            return;
+        }
+
         editText = new EditText(activity);
 
         editText.setImeOptions(EditorInfo.IME_ACTION_DONE);
         editText.setLayoutParams(
                 new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        // Transparent background
-        editText.setBackgroundColor(0x00000000); // Transparent
         editText.setGravity(Gravity.TOP);
         editText.setImeOptions(EditorInfo.IME_FLAG_NO_FULLSCREEN);
 
@@ -40,10 +47,7 @@ public class KeyboardUtils {
                 return false;
             }
         });
-    }
 
-    public void showKeyboard() {
-        Log.d(TAG, "showKeyboard: ");
         editText.setText("");
         try {
             activity.runOnUiThread(new Runnable() {
@@ -63,6 +67,7 @@ public class KeyboardUtils {
                             .getSystemService(Activity.INPUT_METHOD_SERVICE);
                     if (imm != null) {
                         imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+                        Log.d(TAG, "showKeyboard: ");
                     }
 
                 }
