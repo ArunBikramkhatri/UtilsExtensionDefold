@@ -17,9 +17,16 @@ static int Lua_ShowIntent(lua_State* L){
     return 0;
 }
 
+static int Lua_ShowKeyboard(lua_State* L){
+    DM_LUA_STACK_CHECK(L, 0);
+    showKeyboard();
+    return 0;
+}
+
 static const luaL_reg Module_methods[] =
 {
     {"show_mail_intent", Lua_ShowIntent},
+    {"show_keyboard" , Lua_ShowKeyboard},
     {0, 0}
 };
 

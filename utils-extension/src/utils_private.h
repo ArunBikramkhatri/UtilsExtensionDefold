@@ -7,6 +7,7 @@
 namespace dmUtils {
     void showMailIntent(const char* mailUri);
     void InitializeExtension();
+    void showKeyboard();
 }
 
 

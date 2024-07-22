@@ -10,16 +10,28 @@ class Utils {
     private static final String TAG = "Utils";
     private Activity activity;
     private URIOperations uriOp;
+    private KeyboardUtils KeyboardUtils;
 
     public Utils(Activity activity) {
         this.activity = activity;
         uriOp = new URIOperations(activity);
+        KeyboardUtils = new KeyboardUtils(activity);
     }
 
     public void openURI(String uri) {
         try {
             if (uri != null) {
                 uriOp.openURI(uri);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showKeyboard(){
+        try {
+            if (KeyboardUtils != null) {
+                KeyboardUtils.showKeyboard();
             }
         } catch (Exception e) {
             e.printStackTrace();
