@@ -19,7 +19,7 @@ namespace dmUtils {
 
     static void InitJNIMethods(JNIEnv* env , jclass cls){
         g_uitls.m_startMailIntent= env->GetMethodID(cls , "openURI" ,"(Ljava/lang/String;)V");
-        g_uitls.m_showKeyboard = env->GetMethodID(cls , "showKeyboard" ,"()V;");
+        g_uitls.m_showKeyboard = env->GetMethodID(cls , "showKeyboard" ,"()V");
     }
 
     void InitializeExtension(){
@@ -71,7 +71,7 @@ namespace dmUtils {
         CallVoidMethodChar(g_uitls.m_UtilsJNI , g_uitls.m_startMailIntent ,mailUri);
     }
 
-    void showKeyboard)(){
+    void showKeyboard(){
         CallVoidMethod(g_uitls.m_UtilsJNI , g_uitls.m_showKeyboard);
     }
 

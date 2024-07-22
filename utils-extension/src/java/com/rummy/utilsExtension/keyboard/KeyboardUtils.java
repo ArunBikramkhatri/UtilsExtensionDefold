@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -17,12 +18,15 @@ public class KeyboardUtils {
     private EditText editText;
 
     public KeyboardUtils(Activity activity) {
+        Log.d(TAG, "keyboard constructor called");
         this.activity = activity;
         editText = new EditText(activity);
-        editText.setSingleLine(true);
-        editText.bringToFront();
+
         editText.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        editText.setLayoutParams(new ViewGroup.LayoutParams(0, 0));
+        editText.setLayoutParams(
+                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        // Transparent background
+        editText.setBackgroundColor(0x00000000); // Transparent
         editText.setGravity(Gravity.TOP);
         editText.setImeOptions(EditorInfo.IME_FLAG_NO_FULLSCREEN);
 
@@ -39,15 +43,21 @@ public class KeyboardUtils {
     }
 
     public void showKeyboard() {
+        Log.d(TAG, "showKeyboard: ");
         editText.setText("");
         try {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     if (editText.getParent() == null) {
-                        activity.addContentView(editText, new ViewGroup.LayoutParams(
-                                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                        // Add the EditText to a view that overlays everything
+                        ViewGroup rootView = (ViewGroup) activity.findViewById(android.R.id.content);
+                        rootView.addView(editText, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.MATCH_PARENT));
                     }
+                    editText.setVisibility(View.VISIBLE);
+                    editText.setSingleLine(true);
+                    editText.bringToFront();
                     editText.requestFocus();
                     InputMethodManager imm = (InputMethodManager) activity
                             .getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -83,6 +93,7 @@ public class KeyboardUtils {
     }
 
     private void removeTextEdit() {
+        Log.d(TAG, "removeTextEdit: ");
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {

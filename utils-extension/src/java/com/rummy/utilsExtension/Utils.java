@@ -28,7 +28,7 @@ class Utils {
         }
     }
 
-    public void showKeyboard(){
+    public void showKeyboard() {
         try {
             if (KeyboardUtils != null) {
                 KeyboardUtils.showKeyboard();

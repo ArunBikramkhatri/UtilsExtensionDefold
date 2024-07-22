@@ -26,7 +26,7 @@ static int Lua_ShowKeyboard(lua_State* L){
 static const luaL_reg Module_methods[] =
 {
     {"show_mail_intent", Lua_ShowIntent},
-    {"show_keyboard" , Lua_ShowKeyboard},
+    {"show_ext_keyboard" , Lua_ShowKeyboard},
     {0, 0}
 };
 
