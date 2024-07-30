@@ -31,7 +31,7 @@ class Utils {
     public void showKeyboard() {
         try {
             if (KeyboardUtils != null) {
-                KeyboardUtils.showKeyboard();
+                KeyboardUtils.getKeyboardHeight();
             }
         } catch (Exception e) {
             e.printStackTrace();

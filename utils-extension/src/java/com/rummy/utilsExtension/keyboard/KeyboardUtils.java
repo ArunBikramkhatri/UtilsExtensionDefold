@@ -10,6 +10,9 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.graphics.Rect;
+import android.view.View;
+import android.view.ViewTreeObserver;
 
 public class KeyboardUtils {
     private static final String TAG = "KeyboardUtils";
@@ -20,7 +23,6 @@ public class KeyboardUtils {
     public KeyboardUtils(Activity activity) {
         Log.d(TAG, "keyboard constructor called");
         this.activity = activity;
-
     }
 
     public void showKeyboard() {
@@ -32,8 +34,7 @@ public class KeyboardUtils {
         editText = new EditText(activity);
 
         editText.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        editText.setLayoutParams(
-                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        editText.setLayoutParams(new ViewGroup.LayoutParams(0, 0));
         editText.setGravity(Gravity.TOP);
         editText.setImeOptions(EditorInfo.IME_FLAG_NO_FULLSCREEN);
 
@@ -106,6 +107,21 @@ public class KeyboardUtils {
                 if (parent != null) {
                     parent.removeView(editText);
                 }
+            }
+        });
+    }
+
+    public void getKeyboardHeight() {
+        final View contentView = activity.findViewById(android.R.id.content);
+        contentView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                contentView.getWindowVisibleDisplayFrame(r);
+                int screenHeight = contentView.getRootView().getHeight();
+                int keypadHeight = screenHeight - r.bottom;
+
+                Log.d(TAG, "keyboard height " + keypadHeight);
             }
         });
     }
