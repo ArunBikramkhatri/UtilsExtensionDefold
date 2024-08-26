@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import androidx.core.content.FileProvider;
 
 import java.io.File;
+import android.content.ContextWrapper;
 
 public class URIOperations {
 
@@ -57,5 +58,14 @@ public class URIOperations {
             Log.e(TAG, "Unable to open uri " + uriString, e);
 
         }
+    }
+
+    public void shareText(String title, String subject, String text) {
+        Log.d(TAG, "shareText called");
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, text);
+        activity.startActivity(Intent.createChooser(sharingIntent, title));
     }
 }

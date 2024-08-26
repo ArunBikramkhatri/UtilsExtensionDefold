@@ -30,9 +30,15 @@ class Utils {
 
     public void showKeyboard() {
         try {
-            if (KeyboardUtils != null) {
-                KeyboardUtils.getKeyboardHeight();
-            }
+            System.out.println("showkeyboard");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void shareText(String title, String subject, String text) {
+        try {
+            uriOp.shareText(title, subject, text);
         } catch (Exception e) {
             e.printStackTrace();
         }

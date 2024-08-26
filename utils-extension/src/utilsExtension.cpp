@@ -17,6 +17,15 @@ static int Lua_ShowIntent(lua_State* L){
     return 0;
 }
 
+static int Lua_ShareText(lua_State* L){
+    DM_LUA_STACK_CHECK(L, 0);
+    const char* title = luaL_checkstring(L,1);
+    const char* subject = luaL_checkstring(L,2);
+    const char* text = luaL_checkstring(L,3);
+    shareText(title, subject, text);
+    return 0;
+}
+
 static int Lua_ShowKeyboard(lua_State* L){
     DM_LUA_STACK_CHECK(L, 0);
     showKeyboard();
@@ -27,6 +36,7 @@ static const luaL_reg Module_methods[] =
 {
     {"show_mail_intent", Lua_ShowIntent},
     {"show_ext_keyboard" , Lua_ShowKeyboard},
+    {"share_text" , Lua_ShareText},
     {0, 0}
 };
 
